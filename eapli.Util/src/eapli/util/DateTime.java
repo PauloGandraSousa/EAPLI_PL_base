@@ -6,49 +6,59 @@ package eapli.util;
 
 import java.util.Calendar;
 import java.util.Date;
-import sun.util.calendar.CalendarDate;
-import sun.util.calendar.CalendarSystem;
+import java.util.GregorianCalendar;
 
 /**
  *
  * @author Paulo Gandra Sousa
  */
 public class DateTime {
-        
-    public static CalendarDate today() {
-        CalendarSystem calendar = CalendarSystem.getGregorianCalendar();
-        CalendarDate today = calendar.getCalendarDate();
-        return today;
-    }
-    
-    public static int weekNumber(CalendarDate date) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(date.getMillis());
-        return calendar.get(Calendar.WEEK_OF_YEAR);
-    }
 
-    public static int weekNumber(Date date) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(date.getTime());
-        return calendar.get(Calendar.WEEK_OF_YEAR);
-    }
-    
-    public static int currentWeekNumber() {       
-        return weekNumber(today());
-    }
-    
-    public static CalendarDate newCalendarDate(int year, int month, int day) {
-        CalendarSystem calendar = CalendarSystem.getGregorianCalendar();
-        CalendarDate date = calendar.getCalendarDate();
-        date.setYear(year);
-        date.setMonth(month);
-        date.setDayOfMonth(day);
-        return date;
-    }
-    
-    public static Date newDate(int year, int month, int day) {
-        Calendar c = Calendar.getInstance();
-        c.set(year, month-1, day);
-        return c.getTime();
-    }
+	/**
+	 * returns the current date of the system
+	 *
+	 * @return
+	 */
+	public static Calendar today() {
+		return new GregorianCalendar();
+	}
+
+	/**
+	 * returns the number of the week in the year given a certain date
+	 *
+	 * @param date
+	 * @return
+	 */
+	public static int weekNumber(final Calendar date) {
+		return date.get(Calendar.WEEK_OF_YEAR);
+	}
+
+	public static int weekNumber(Date date) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTimeInMillis(date.getTime());
+		return calendar.get(Calendar.WEEK_OF_YEAR);
+	}
+
+	public static int currentWeekNumber() {
+		return weekNumber(today());
+	}
+
+	/**
+	 * Creates a new Calendar object set to a specific date
+	 *
+	 * @param year the year
+	 * @param month the month (1 - 12)
+	 * @param day the day of the month
+	 * @return a newly create Calendar object
+	 */
+	public static Calendar newCalendar(final int year, final int month,
+									   final int day) {
+		return new GregorianCalendar(year, month - 1, day);
+	}
+
+	public static Date newDate(int year, int month, int day) {
+		Calendar c = Calendar.getInstance();
+		c.set(year, month - 1, day);
+		return c.getTime();
+	}
 }
